@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Squares for MS</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Serif+Pro:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -16,7 +16,7 @@
       min-height: 100vh;
       background: linear-gradient(135deg, #0a1628 0%, #1a365d 50%, #0f172a 100%);
       padding: 1.5rem;
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: 'Source Serif Pro', Georgia, serif;
       position: relative;
       overflow-x: hidden;
     }
@@ -680,7 +680,7 @@
       
       <div class="charity-box">
         <div class="label">Supporting</div>
-        <div class="name">Rocky Mountain Multiple Sclerosis Center</div>
+        <div class="name">Rocky Mountain MS Center</div>
       </div>
       
       <div class="how-it-works">
@@ -689,7 +689,7 @@
         <p>2. Pay via Venmo — squares are confirmed once payment is received</p>
         <p>3. On game day, numbers 0-9 are randomly assigned to rows & columns</p>
         <p>4. At the end of the Super Bowl, the last digit of each team's score determines the winning square</p>
-        <p><strong class="green">$500 to the winner</strong> • <strong class="orange">$500 to Rocky Mountain Multiple Sclerosis Center</strong></p>
+        <p><strong class="green">$500 to the winner</strong> • <strong class="orange">$500 to Rocky Mountain MS Center</strong></p>
       </div>
       
       <a href="https://account.venmo.com/u/Christian-Wallis-1" target="_blank" rel="noopener noreferrer" class="venmo-btn">
@@ -736,7 +736,7 @@
     
     <div class="claim-section">
       <h2>CLAIM YOUR SQUARES</h2>
-      <input type="text" id="buyer-name" placeholder="Enter your name">
+      <input type="text" id="buyer-name" placeholder="Enter your full name">
       <div id="selection-summary" class="selection-summary hidden">
         <div class="count" id="selection-count">0 squares selected</div>
         <div class="total" id="selection-total">$0 DUE</div>
@@ -836,12 +836,19 @@
         const data = await response.json();
         
         // Parse Squares sheet (confirmed squares)
+        // Format: Name, Squares (e.g., "Jamie", "8-5;8-3;6-8;3-9")
         if (data.valueRanges[0]?.values) {
           squares = {};
           data.valueRanges[0].values.slice(1).forEach(row => {
-            if (row[0] !== undefined && row[1] !== undefined && row[2]) {
-              const key = `${row[0]}-${row[1]}`;
-              squares[key] = row[2];
+            if (row[0] && row[1]) {
+              const name = row[0];
+              const squaresList = row[1].split(';');
+              squaresList.forEach(sq => {
+                const key = sq.trim();
+                if (key) {
+                  squares[key] = name;
+                }
+              });
             }
           });
         }
@@ -1061,7 +1068,7 @@
       modalNameEl.textContent = name;
       modalCountEl.textContent = `${count} square${count !== 1 ? 's' : ''}`;
       modalAmountEl.textContent = `$${total}`;
-      modalCharityEl.textContent = `$${charity.toFixed(2)} supports Rocky Mountain Multiple Sclerosis Center!`;
+      modalCharityEl.textContent = `$${charity.toFixed(2)} supports Rocky Mountain MS Center!`;
       modalOverlayEl.classList.remove('hidden');
       
       // Mark as pending locally (will be updated on next refresh)
