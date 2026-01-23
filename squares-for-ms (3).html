@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Squares for MS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0a1628 0%, #1a365d 50%, #0f172a 100%);
+      padding: 1.5rem;
+      font-family: 'Inter', system-ui, sans-serif;
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    .bg-decoration-1 {
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(251,191,36,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    
+    .bg-decoration-2 {
+      position: absolute;
+      bottom: -20%;
+      left: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      padding: 0.4rem 1.5rem;
+      border-radius: 50px;
+      margin-bottom: 0.75rem;
+      box-shadow: 0 4px 20px rgba(251,191,36,0.3);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.9rem;
+      color: #0a1628;
+      letter-spacing: 0.15em;
+    }
+    
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      color: white;
+      margin: 0.5rem 0;
+      letter-spacing: 0.05em;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    
+    .price-tags {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+    
+    .price-tag {
+      background: rgba(251,191,36,0.15);
+      border: 1px solid rgba(251,191,36,0.3);
+      border-radius: 8px;
+      padding: 0.4rem 0.8rem;
+      color: #fbbf24;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    
+    .charity-tag {
+      background: rgba(34,197,94,0.15);
+      border: 1px solid rgba(34,197,94,0.3);
+      color: #22c55e;
+    }
+    
+    .charity-box {
+      background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 0.75rem 1.25rem;
+      max-width: 500px;
+      margin: 0 auto 0.75rem;
+      backdrop-filter: blur(10px);
+    }
+    
+    .charity-box .label {
+      color: #94a3b8;
+      font-size: 0.85rem;
+      margin-bottom: 0.3rem;
+    }
+    
+    .charity-box .name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: #f97316;
+      letter-spacing: 0.05em;
+    }
+    
+    .how-it-works {
+      background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      max-width: 550px;
+      margin: 0 auto 0.75rem;
+      text-align: left;
+    }
+    
+    .how-it-works h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      color: #fbbf24;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+    
+    .how-it-works p {
+      color: #94a3b8;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin: 0 0 0.4rem;
+    }
+    
+    .how-it-works p:last-child {
+      margin: 0;
+    }
+    
+    .how-it-works strong.green {
+      color: #22c55e;
+    }
+    
+    .how-it-works strong.orange {
+      color: #f97316;
+    }
+    
+    .venmo-btn {
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      border-radius: 10px;
+      padding: 0.6rem 1.25rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 15px rgba(59,130,246,0.4);
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      color: white;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    
+    .venmo-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(59,130,246,0.5);
+    }
+    
+    .venmo-btn .handle {
+      color: #bfdbfe;
+    }
+    
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+    
+    .stat-box {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 0.6rem 1rem;
+      text-align: center;
+    }
+    
+    .stat-box.green {
+      background: rgba(34,197,94,0.1);
+      border-color: rgba(34,197,94,0.2);
+    }
+    
+    .stat-box .label {
+      color: #64748b;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    .stat-box.green .label {
+      color: #22c55e;
+    }
+    
+    .stat-box .value {
+      color: white;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+    }
+    
+    .stat-box.green .value {
+      color: #22c55e;
+    }
+    
+    .final-score-box {
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+      background: linear-gradient(135deg, rgba(34,197,94,0.15) 0%, rgba(34,197,94,0.05) 100%);
+      border: 2px solid rgba(34,197,94,0.4);
+      border-radius: 16px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+    
+    .final-score-box .label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      color: #94a3b8;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+    
+    .final-score-box .score {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: white;
+      margin-bottom: 1rem;
+    }
+    
+    .winner-box {
+      background: rgba(0,0,0,0.3);
+      border-radius: 10px;
+      padding: 1rem;
+    }
+    
+    .winner-box .winning-label {
+      color: #fbbf24;
+      font-size: 0.85rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .winner-box .winner-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: #22c55e;
+    }
+    
+    .winner-box .prize {
+      color: #22c55e;
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+    
+    .grid-container {
+      max-width: 600px;
+      margin: 0 auto 1.25rem;
+    }
+    
+    .grid-note {
+      text-align: center;
+      margin-bottom: 0.75rem;
+      color: #64748b;
+      font-size: 0.8rem;
+      font-style: italic;
+    }
+    
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    
+    .legend-color {
+      width: 16px;
+      height: 16px;
+      border-radius: 3px;
+    }
+    
+    .legend-color.available {
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+    }
+    
+    .legend-color.pending {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    }
+    
+    .legend-color.confirmed {
+      background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+    }
+    
+    .legend-text {
+      color: #94a3b8;
+      font-size: 0.75rem;
+    }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: 30px repeat(10, 1fr);
+      gap: 2px;
+    }
+    
+    .grid-header {
+      background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+      color: #93c5fd;
+      text-align: center;
+      padding: 0.4rem 0;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.9rem;
+      border-radius: 4px 4px 0 0;
+      letter-spacing: 0.05em;
+    }
+    
+    .grid-row-label {
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+      color: #fecaca;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+    }
+    
+    .grid-row-label.first {
+      border-radius: 4px 0 0 0;
+    }
+    
+    .grid-row-label.last {
+      border-radius: 0 0 0 4px;
+    }
+    
+    .grid-corner {
+      width: 30px;
+    }
+    
+    .square {
+      aspect-ratio: 1;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px;
+      overflow: hidden;
+      font-size: 0.55rem;
+      color: #9ca3af;
+      text-align: center;
+      line-height: 1.1;
+      word-break: break-word;
+    }
+    
+    .square:hover:not(.taken):not(.pending) {
+      background: linear-gradient(135deg, rgba(34,197,94,0.3) 0%, rgba(34,197,94,0.15) 100%);
+      transform: scale(1.05);
+    }
+    
+    .square.selected {
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+      box-shadow: 0 4px 15px rgba(34,197,94,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+      transform: scale(0.95);
+      outline: 2px solid #86efac;
+      outline-offset: -2px;
+      color: white;
+      font-size: 1rem;
+    }
+    
+    .square.pending {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      box-shadow: 0 2px 10px rgba(251,191,36,0.3);
+      cursor: not-allowed;
+      color: #78350f;
+      font-weight: 600;
+      font-size: 0.5rem;
+    }
+    
+    .square.taken {
+      background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+      cursor: not-allowed;
+    }
+    
+    .square.winner {
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+      border: 3px solid #fbbf24;
+      box-shadow: 0 0 20px rgba(251,191,36,0.6), 0 0 40px rgba(34,197,94,0.4);
+      transform: scale(1.1);
+      z-index: 10;
+      position: relative;
+      animation: pulse 2s infinite;
+      color: white;
+      font-weight: 700;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(251,191,36,0.6), 0 0 40px rgba(34,197,94,0.4); }
+      50% { box-shadow: 0 0 30px rgba(251,191,36,0.8), 0 0 60px rgba(34,197,94,0.6); }
+    }
+    
+    .claim-section {
+      max-width: 450px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 16px;
+      padding: 1.25rem;
+      backdrop-filter: blur(10px);
+    }
+    
+    .claim-section h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: white;
+      margin: 0 0 1rem;
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+    
+    .claim-section input[type="text"] {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      border: 2px solid rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.3);
+      color: white;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 0.75rem;
+    }
+    
+    .claim-section input[type="text"]:focus {
+      border-color: #fbbf24;
+    }
+    
+    .selection-summary {
+      background: rgba(251,191,36,0.1);
+      border: 1px solid rgba(251,191,36,0.3);
+      border-radius: 10px;
+      padding: 0.75rem;
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
+    
+    .selection-summary .count {
+      color: #fbbf24;
+      font-size: 0.85rem;
+      margin-bottom: 0.3rem;
+    }
+    
+    .selection-summary .total {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: white;
+    }
+    
+    .selection-summary .charity {
+      color: #22c55e;
+      font-size: 0.8rem;
+    }
+    
+    .submit-btn {
+      width: 100%;
+      padding: 0.9rem;
+      border-radius: 10px;
+      border: none;
+      background: #374151;
+      color: #6b7280;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.1em;
+      cursor: not-allowed;
+      transition: all 0.2s;
+    }
+    
+    .submit-btn.active {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      color: #0a1628;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(251,191,36,0.4);
+    }
+    
+    .submit-btn.active:hover {
+      transform: scale(1.02);
+    }
+    
+    .claim-note {
+      color: #64748b;
+      font-size: 0.75rem;
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+    
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 1rem;
+    }
+    
+    .modal {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 2px solid #fbbf24;
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 400px;
+      text-align: center;
+      animation: pop 0.3s ease-out;
+    }
+    
+    @keyframes pop {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    .modal .icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .modal h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: #fbbf24;
+      margin: 0 0 0.5rem;
+      letter-spacing: 0.05em;
+    }
+    
+    .modal p {
+      color: #94a3b8;
+      margin-bottom: 1rem;
+    }
+    
+    .modal p strong {
+      color: white;
+    }
+    
+    .modal p strong.gold {
+      color: #fbbf24;
+    }
+    
+    .modal .amount-box {
+      background: rgba(251,191,36,0.1);
+      border: 1px solid rgba(251,191,36,0.3);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .modal .amount-box .label {
+      color: #fbbf24;
+      font-size: 0.85rem;
+    }
+    
+    .modal .amount-box .amount {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      color: white;
+    }
+    
+    .modal .amount-box .charity {
+      color: #22c55e;
+      font-size: 0.85rem;
+    }
+    
+    .modal .venmo-box {
+      background: rgba(59,130,246,0.1);
+      border: 1px solid rgba(59,130,246,0.3);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    
+    .modal .venmo-box .label {
+      color: #93c5fd;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .modal .venmo-box .handle {
+      color: #3b82f6;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    
+    .modal .venmo-box .note {
+      color: #64748b;
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+    }
+    
+    .modal .close-btn {
+      padding: 0.75rem 2rem;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      color: white;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 3rem;
+      color: #fbbf24;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.1em;
+    }
+    
+    .error {
+      text-align: center;
+      padding: 2rem;
+      color: #f87171;
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.3);
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-decoration-1"></div>
+  <div class="bg-decoration-2"></div>
+  
+  <div class="container">
+    <header>
+      <div class="badge">🏈 CHARITY FUNDRAISER 🏈</div>
+      <h1>SQUARES FOR MS</h1>
+      
+      <div class="price-tags">
+        <span class="price-tag">$10 per square</span>
+        <span class="price-tag charity-tag">50% to Charity!</span>
+      </div>
+      
+      <div class="charity-box">
+        <div class="label">Supporting</div>
+        <div class="name">Rocky Mountain Multiple Sclerosis Center</div>
+      </div>
+      
+      <div class="how-it-works">
+        <h3>HOW IT WORKS</h3>
+        <p>1. Pick your squares on the grid below ($10 each)</p>
+        <p>2. Pay via Venmo — squares are confirmed once payment is received</p>
+        <p>3. On game day, numbers 0-9 are randomly assigned to rows & columns</p>
+        <p>4. At the end of the Super Bowl, the last digit of each team's score determines the winning square</p>
+        <p><strong class="green">$500 to the winner</strong> • <strong class="orange">$500 to Rocky Mountain Multiple Sclerosis Center</strong></p>
+      </div>
+      
+      <a href="https://account.venmo.com/u/Christian-Wallis-1" target="_blank" rel="noopener noreferrer" class="venmo-btn">
+        <span>💸</span>
+        <span>Pay via Venmo: <span class="handle">@Christian-Wallis1</span></span>
+      </a>
+    </header>
+    
+    <div class="stats-bar">
+      <div class="stat-box">
+        <div class="label">Confirmed</div>
+        <div class="value" id="confirmed-count">0/100</div>
+      </div>
+      <div class="stat-box green">
+        <div class="label">Raised for MS Center</div>
+        <div class="value" id="charity-amount">$0</div>
+      </div>
+    </div>
+    
+    <div id="final-score-container" class="hidden"></div>
+    
+    <div class="grid-container">
+      <div class="grid-note" id="grid-note">Numbers will be randomly assigned on Game Day</div>
+      
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-color available"></div>
+          <span class="legend-text">Available</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color pending"></div>
+          <span class="legend-text">Pending</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color confirmed"></div>
+          <span class="legend-text">Confirmed</span>
+        </div>
+      </div>
+      
+      <div class="grid" id="grid">
+        <!-- Grid will be populated by JavaScript -->
+      </div>
+    </div>
+    
+    <div class="claim-section">
+      <h2>CLAIM YOUR SQUARES</h2>
+      <input type="text" id="buyer-name" placeholder="Enter your name">
+      <div id="selection-summary" class="selection-summary hidden">
+        <div class="count" id="selection-count">0 squares selected</div>
+        <div class="total" id="selection-total">$0 DUE</div>
+        <div class="charity" id="selection-charity">$0 goes to charity!</div>
+      </div>
+      <button class="submit-btn" id="submit-btn" disabled>SUBMIT REQUEST</button>
+      <p class="claim-note">Your squares will be confirmed once payment is received via Venmo @Christian-Wallis1</p>
+    </div>
+  </div>
+  
+  <div id="modal-overlay" class="modal-overlay hidden">
+    <div class="modal">
+      <div class="icon">⏳</div>
+      <h3>REQUEST SUBMITTED!</h3>
+      <p><strong id="modal-name"></strong>, you've requested <strong class="gold" id="modal-count"></strong></p>
+      <div class="amount-box">
+        <div class="label">Amount Due</div>
+        <div class="amount" id="modal-amount"></div>
+        <div class="charity" id="modal-charity"></div>
+      </div>
+      <div class="venmo-box">
+        <div class="label">Send payment now to:</div>
+        <div class="handle">@Christian-Wallis1</div>
+        <div class="note">Your squares will be confirmed once payment is verified</div>
+      </div>
+      <button class="close-btn" id="modal-close">GOT IT!</button>
+    </div>
+  </div>
+  
+  <div id="loading" class="loading">LOADING...</div>
+  <div id="error" class="error hidden"></div>
+
+  <script>
+    // ===========================================
+    // CONFIGURATION - UPDATE THESE VALUES
+    // ===========================================
+    const CONFIG = {
+      // Your Google Sheet ID (from the URL: https://docs.google.com/spreadsheets/d/SHEET_ID/edit)
+      SHEET_ID: '1_aiLESCaL17Cq7OMSJGwV8ectthzy7YDk0fHijZioi0',
+      
+      // Your Google API Key
+      API_KEY: 'AIzaSyD_aMYuNWr-4Eic80rW2rvRDogHpxOwoow',
+      
+      // Google Form submission URL (from form's prefilled link)
+      FORM_URL: 'https://docs.google.com/forms/d/e/1FAIpQLSe2PRzoEIaCLal5TGvhmmxj4HsTJ56um6SvJzUaJyAnTEuvuQ/formResponse',
+      
+      // Form field IDs (from the form's HTML)
+      FORM_FIELDS: {
+        name: 'entry.338392548',
+        squares: 'entry.2075961659'
+      }
+    };
+    // ===========================================
+    
+    const SQUARE_PRICE = 10;
+    const CHARITY_PERCENTAGE = 0.5;
+    
+    let squares = {};        // { "row-col": "OwnerName" }
+    let pending = {};        // { "row-col": "RequesterName" }
+    let rowNumbers = null;   // [3, 7, 1, ...] or null
+    let colNumbers = null;   // [8, 2, 5, ...] or null
+    let finalScore = null;   // { team1, score1, team2, score2 } or null
+    let selectedSquares = [];
+    
+    // DOM Elements
+    const gridEl = document.getElementById('grid');
+    const loadingEl = document.getElementById('loading');
+    const errorEl = document.getElementById('error');
+    const confirmedCountEl = document.getElementById('confirmed-count');
+    const charityAmountEl = document.getElementById('charity-amount');
+    const gridNoteEl = document.getElementById('grid-note');
+    const buyerNameEl = document.getElementById('buyer-name');
+    const selectionSummaryEl = document.getElementById('selection-summary');
+    const selectionCountEl = document.getElementById('selection-count');
+    const selectionTotalEl = document.getElementById('selection-total');
+    const selectionCharityEl = document.getElementById('selection-charity');
+    const submitBtnEl = document.getElementById('submit-btn');
+    const modalOverlayEl = document.getElementById('modal-overlay');
+    const modalNameEl = document.getElementById('modal-name');
+    const modalCountEl = document.getElementById('modal-count');
+    const modalAmountEl = document.getElementById('modal-amount');
+    const modalCharityEl = document.getElementById('modal-charity');
+    const modalCloseEl = document.getElementById('modal-close');
+    const finalScoreContainerEl = document.getElementById('final-score-container');
+    
+    // Fetch data from Google Sheets
+    async function fetchData() {
+      try {
+        const sheetsToFetch = ['Squares', 'Pending', 'Settings'];
+        const baseUrl = `https://sheets.googleapis.com/v4/spreadsheets/${CONFIG.SHEET_ID}/values:batchGet`;
+        const ranges = sheetsToFetch.map(s => `ranges=${s}`).join('&');
+        const url = `${baseUrl}?${ranges}&key=${CONFIG.API_KEY}`;
+        
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Failed to fetch data');
+        
+        const data = await response.json();
+        
+        // Parse Squares sheet (confirmed squares)
+        if (data.valueRanges[0]?.values) {
+          squares = {};
+          data.valueRanges[0].values.slice(1).forEach(row => {
+            if (row[0] && row[1] && row[2]) {
+              const key = `${row[0]}-${row[1]}`;
+              squares[key] = row[2];
+            }
+          });
+        }
+        
+        // Parse Pending sheet
+        if (data.valueRanges[1]?.values) {
+          pending = {};
+          data.valueRanges[1].values.slice(1).forEach(row => {
+            if (row[0] && row[1] && row[2]) {
+              const key = `${row[0]}-${row[1]}`;
+              pending[key] = row[2];
+            }
+          });
+        }
+        
+        // Parse Settings sheet
+        if (data.valueRanges[2]?.values) {
+          data.valueRanges[2].values.forEach(row => {
+            if (row[0] === 'RowNumbers' && row[1]) {
+              rowNumbers = row[1].split(',').map(Number);
+            }
+            if (row[0] === 'ColNumbers' && row[1]) {
+              colNumbers = row[1].split(',').map(Number);
+            }
+            if (row[0] === 'FinalScore' && row[1]) {
+              const parts = row[1].split(',');
+              if (parts.length === 4) {
+                finalScore = {
+                  team1: parts[0],
+                  score1: parseInt(parts[1]),
+                  team2: parts[2],
+                  score2: parseInt(parts[3])
+                };
+              }
+            }
+          });
+        }
+        
+        loadingEl.classList.add('hidden');
+        render();
+        
+      } catch (err) {
+        loadingEl.classList.add('hidden');
+        errorEl.textContent = 'Error loading data. Please refresh the page.';
+        errorEl.classList.remove('hidden');
+        console.error(err);
+      }
+    }
+    
+    // Render the grid and UI
+    function render() {
+      // Update stats
+      const confirmedCount = Object.keys(squares).length;
+      confirmedCountEl.textContent = `${confirmedCount}/100`;
+      charityAmountEl.textContent = `$${(confirmedCount * SQUARE_PRICE * CHARITY_PERCENTAGE).toFixed(0)}`;
+      
+      // Update grid note
+      gridNoteEl.textContent = rowNumbers 
+        ? 'Numbers have been randomly assigned!' 
+        : 'Numbers will be randomly assigned on Game Day';
+      
+      // Find winning square
+      let winningKey = null;
+      if (finalScore && rowNumbers && colNumbers) {
+        const lastDigit1 = finalScore.score1 % 10;
+        const lastDigit2 = finalScore.score2 % 10;
+        const colIndex = colNumbers.indexOf(lastDigit1);
+        const rowIndex = rowNumbers.indexOf(lastDigit2);
+        winningKey = `${rowIndex}-${colIndex}`;
+      }
+      
+      // Render final score if exists
+      if (finalScore) {
+        const winner = squares[winningKey];
+        finalScoreContainerEl.innerHTML = `
+          <div class="final-score-box">
+            <div class="label">FINAL SCORE</div>
+            <div class="score">${finalScore.team1} ${finalScore.score1} — ${finalScore.score2} ${finalScore.team2}</div>
+            <div class="winner-box">
+              <div class="winning-label">🏆 WINNING SQUARE (${finalScore.score1 % 10}, ${finalScore.score2 % 10})</div>
+              <div class="winner-name">${winner || 'UNCLAIMED'}</div>
+              ${winner ? '<div class="prize">Wins $500! 🎉</div>' : ''}
+            </div>
+          </div>
+        `;
+        finalScoreContainerEl.classList.remove('hidden');
+      }
+      
+      // Build grid HTML
+      let gridHTML = '<div class="grid-corner"></div>';
+      
+      // Column headers
+      for (let c = 0; c < 10; c++) {
+        gridHTML += `<div class="grid-header">${colNumbers ? colNumbers[c] : '?'}</div>`;
+      }
+      
+      // Rows
+      for (let r = 0; r < 10; r++) {
+        // Row label
+        const rowClass = r === 0 ? 'first' : r === 9 ? 'last' : '';
+        gridHTML += `<div class="grid-row-label ${rowClass}">${rowNumbers ? rowNumbers[r] : '?'}</div>`;
+        
+        // Squares
+        for (let c = 0; c < 10; c++) {
+          const key = `${r}-${c}`;
+          const owner = squares[key];
+          const pendingName = pending[key];
+          const isSelected = selectedSquares.includes(key);
+          const isWinner = key === winningKey;
+          
+          let className = 'square';
+          let content = '';
+          let title = 'Click to select';
+          
+          if (isWinner) {
+            className += ' winner';
+            content = `🏆 ${owner || '?'}`;
+            title = `Winner: ${owner || 'Unclaimed'}`;
+          } else if (owner) {
+            className += ' taken';
+            content = owner.length > 10 ? owner.substring(0, 10) + '...' : owner;
+            title = `Confirmed: ${owner}`;
+          } else if (pendingName) {
+            className += ' pending';
+            content = pendingName.length > 8 ? pendingName.substring(0, 8) + '...' : pendingName;
+            title = `Pending: ${pendingName}`;
+          } else if (isSelected) {
+            className += ' selected';
+            content = '✓';
+            title = 'Selected';
+          }
+          
+          gridHTML += `<div class="${className}" data-key="${key}" title="${title}">${content}</div>`;
+        }
+      }
+      
+      gridEl.innerHTML = gridHTML;
+      
+      // Add click handlers to squares
+      gridEl.querySelectorAll('.square').forEach(el => {
+        el.addEventListener('click', () => handleSquareClick(el.dataset.key));
+      });
+      
+      updateSelectionUI();
+    }
+    
+    function handleSquareClick(key) {
+      if (squares[key] || pending[key]) return;
+      
+      if (selectedSquares.includes(key)) {
+        selectedSquares = selectedSquares.filter(k => k !== key);
+      } else {
+        selectedSquares.push(key);
+      }
+      
+      render();
+    }
+    
+    function updateSelectionUI() {
+      const count = selectedSquares.length;
+      const total = count * SQUARE_PRICE;
+      const charity = total * CHARITY_PERCENTAGE;
+      const name = buyerNameEl.value.trim();
+      
+      if (count > 0) {
+        selectionSummaryEl.classList.remove('hidden');
+        selectionCountEl.textContent = `${count} square${count !== 1 ? 's' : ''} selected`;
+        selectionTotalEl.textContent = `$${total} DUE`;
+        selectionCharityEl.textContent = `$${charity.toFixed(2)} goes to charity!`;
+      } else {
+        selectionSummaryEl.classList.add('hidden');
+      }
+      
+      if (count > 0 && name) {
+        submitBtnEl.disabled = false;
+        submitBtnEl.classList.add('active');
+      } else {
+        submitBtnEl.disabled = true;
+        submitBtnEl.classList.remove('active');
+      }
+    }
+    
+    async function submitRequest() {
+      const name = buyerNameEl.value.trim();
+      if (!name || selectedSquares.length === 0) return;
+      
+      const count = selectedSquares.length;
+      const total = count * SQUARE_PRICE;
+      const charity = total * CHARITY_PERCENTAGE;
+      
+      // Submit to Google Form
+      const formData = new FormData();
+      formData.append(CONFIG.FORM_FIELDS.name, name);
+      formData.append(CONFIG.FORM_FIELDS.squares, selectedSquares.join(';'));
+      
+      try {
+        // Google Forms doesn't support CORS, so we use no-cors mode
+        // This means we won't get a response, but the submission will go through
+        await fetch(CONFIG.FORM_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: formData
+        });
+      } catch (err) {
+        console.log('Form submitted (no-cors mode)');
+      }
+      
+      // Show confirmation modal
+      modalNameEl.textContent = name;
+      modalCountEl.textContent = `${count} square${count !== 1 ? 's' : ''}`;
+      modalAmountEl.textContent = `$${total}`;
+      modalCharityEl.textContent = `$${charity.toFixed(2)} supports Rocky Mountain Multiple Sclerosis Center!`;
+      modalOverlayEl.classList.remove('hidden');
+      
+      // Mark as pending locally (will be updated on next refresh)
+      selectedSquares.forEach(key => {
+        pending[key] = name;
+      });
+      
+      // Clear selection
+      selectedSquares = [];
+      buyerNameEl.value = '';
+      render();
+    }
+    
+    // Event listeners
+    buyerNameEl.addEventListener('input', updateSelectionUI);
+    submitBtnEl.addEventListener('click', submitRequest);
+    modalCloseEl.addEventListener('click', () => {
+      modalOverlayEl.classList.add('hidden');
+    });
+    
+    // Initial load
+    fetchData();
+    
+    // Refresh data every 30 seconds
+    setInterval(fetchData, 30000);
+  </script>
+</body>
+</html>
