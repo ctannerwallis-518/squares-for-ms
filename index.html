@@ -1026,7 +1026,17 @@
     }
     
     function handleSquareClick(key) {
-      if (squares[key] || pending[key]) return;
+      // If square is taken, show full name
+      if (squares[key]) {
+        alert(`This square belongs to: ${squares[key]}`);
+        return;
+      }
+      
+      // If square is pending, show full name
+      if (pending[key]) {
+        alert(`This square is pending for: ${pending[key]}`);
+        return;
+      }
       
       if (selectedSquares.includes(key)) {
         selectedSquares = selectedSquares.filter(k => k !== key);
